@@ -14,7 +14,7 @@ int getcommands(char **buff_line, size_t *buf_line_size)
 
 	ssize_t bytes_r;
 
-	bytes_r = getline(buff_line, buf_line_size, stdin);
+	bytes_r = _getline(buff_line, buf_line_size, stdin);
 
 	return (bytes_r);
 
