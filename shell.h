@@ -27,7 +27,7 @@ char *_strcpy(char *dest, const char *src);
 
 
 void *_realloc(void *pt, unsigned int old_size, unsigned int new_size);
-void assign_bufferptr(char **buffptr, size_t *n, char *buffer, size_t buff_size);
+void assign_bufferptr(char **buffptr, size_t *n, char *buffer, size_t size);
 ssize_t _getline(char **bufferptr, size_t *n, FILE *stream);
 
 #endif /* SHELL_H */

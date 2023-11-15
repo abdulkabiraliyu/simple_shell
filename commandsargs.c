@@ -34,8 +34,6 @@ char **gettokens(char *buff_line)
 	char **av = NULL;
 	char *tkns = NULL, *dlim = " \n";
 	int ac = 0, i;
-	
-	/*  _strcpy(buff_line_dup, buff_line); */
 
 	tkns = _strtok(buff_line_dup, dlim);
 	while (tkns)
