@@ -51,7 +51,8 @@ char *_concat_strings(const char *str1, const char *str2)
 	if (result == NULL)
 	{
 		perror("Error <malloc>:");
-		exit(EXIT_FAILURE);
+		free(result);
+		return (NULL);
 	}
 
 	for (i = 0; i < len_A; i++)
@@ -67,6 +68,5 @@ char *_concat_strings(const char *str1, const char *str2)
 
 
 	result[len_A + len_B] = '\0';
-
 	return (result);
 }

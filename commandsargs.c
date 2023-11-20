@@ -1,5 +1,6 @@
 #include "shell.h"
 
+
 /**
  * getcommands - get command and arguments from the shell terminal
  *
@@ -47,10 +48,10 @@ char **gettokens(char *buff_line)
 
 	if (av == NULL)
 	{
+		free(buff_line_dup);
 		perror("Error <malloc>:");
 		exit(EXIT_FAILURE);
 	}
-
 
 	tkns  = _strtok(buff_line, dlim);
 	for (i = 0; i < ac; i++)
@@ -60,12 +61,11 @@ char **gettokens(char *buff_line)
 		tkns = _strtok(NULL, dlim);
 
 	}
+
 	av[i] = NULL;
-
+	free(buff_line);
 	free(buff_line_dup);
-
 	return (av);
-
 }
 
 /**
@@ -79,39 +79,43 @@ char **gettokens(char *buff_line)
 void exec_cmd(char **argv, char *prompt, char **env)
 {
 	pid_t p_id;
-	char *path = getenv("PATH");
-	char *full_path;
+	char *path = getenv("PATH"), *full_path;
 	int status;
 
 	if (path != NULL)
-		full_path  = get_full_path(path, argv[0]);
-
+	{
+		full_path = get_full_path(path, argv[0]);
+		if (full_path != NULL)
+		{
+			p_id = fork();
+			if (p_id == -1)
+			{
+				perror("fork");
+				exit(EXIT_FAILURE);
+			}
+			else if (p_id == 0)
+			{
+				if (execve(full_path, argv, env) == -1)
+				{
+					perror(prompt);
+					exit(EXIT_FAILURE);
+				}
+			}
+			else
+			{
+				free_e(argv);
+				free(full_path);
+				wait(&status);
+			}
+		}
+		else
+		{
+			perror(prompt);
+			free(full_path);
+		}
+	}
 	else
 	{
 		perror("Error <PATH is NULL>");
-	}
-	p_id = fork();
-	if (p_id == -1)
-	{
-		perror("fork");
-		exit(EXIT_FAILURE);
-	}
-	else if (p_id == 0)
-	{
-		if (full_path != NULL)
-		{
-			if (execve(full_path, argv, env) == -1)
-			{
-				perror(prompt);
-				exit(EXIT_FAILURE);
-			}
-
-		}
-
-
-	}
-	else
-	{
-		wait(&status);
 	}
 }

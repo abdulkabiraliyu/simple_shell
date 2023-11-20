@@ -12,7 +12,7 @@
 
 int main(int ac, char **av, char **envp)
 {
-	char *buff_line = NULL;
+	char *buff_line;
 	size_t buf_line_size = 0;
 	char *prmpt = "[$hell]-$ ";
 	char **argv = NULL;
@@ -24,14 +24,20 @@ int main(int ac, char **av, char **envp)
 		if (isatty(STDIN_FILENO))
 			display_prompt(prmpt);
 
+		buff_line = NULL;
+
 		if (getcommands(&buff_line, &buf_line_size) == -1)
+		{
+			free(buff_line);
 			return (-1);
+		}
 
 		argv = gettokens(buff_line);
 
 		if (strcmp(argv[0], "exit") == 0)
 		{
-			exit(EXIT_SUCCESS);
+			free(argv);
+			break;
 		}
 		else if (strcmp(argv[0], "cd") == 0)
 		{
@@ -39,17 +45,13 @@ int main(int ac, char **av, char **envp)
 		}
 		else
 		{
-			exec_cmd(argv, prmpt, envp);
+		exec_cmd(argv, prmpt, envp);
+
 		}
 
 	} while (1);
 
-	free(buff_line);
-
-	free_e(argv);
-
 	return (0);
-
 }
 
 /**
@@ -60,10 +62,12 @@ int main(int ac, char **av, char **envp)
 
 void free_e(char **argv)
 {
-	while (*argv != NULL)
+	char **temp = argv;
+
+	while (*temp != NULL)
 	{
-		free(*argv);
-		argv++;
+		free(*temp);
+		temp++;
 	}
 	free(argv);
 }
