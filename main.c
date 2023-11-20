@@ -14,7 +14,7 @@ int main(int ac, char **av, char **envp)
 {
 	char *buff_line;
 	size_t buf_line_size = 0;
-	char *prmpt = "[$hell]-$ ";
+	char *prmpt = "$ ";
 	char **argv = NULL;
 
 	(void) ac;
@@ -34,13 +34,12 @@ int main(int ac, char **av, char **envp)
 
 		argv = gettokens(buff_line);
 
-		/*
+		
 		if (strcmp(argv[0], "exit") == 0)
 		{
 			free(argv);
 			break;
 		}
-		*/
 		else if (strcmp(argv[0], "cd") == 0)
 		{
 			change_dir(argv);
