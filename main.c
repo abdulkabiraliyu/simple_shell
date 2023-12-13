@@ -39,7 +39,7 @@ int main(int ac, char **av, char **envp)
 		}
 		else if (_cmpStrings(argv[0], "cd") == 0)
 		{
-			change_dir(argv);
+			change_dir(argv, envp);
 			free(argv);
 		}
 		else

@@ -36,6 +36,92 @@ char *_getenv(const char *name, char **envp)
 	return (env);
 }
 
+/**
+ * _setenv - set a new environment
+ *
+ * @name: name of the environment variable
+ * @value: value
+ * @overwrite: overwrite
+ * @envp: environment
+ *
+ * Return: nothing
+ */
+int _setenv(const char *name, const char *value, int overwrite, char **envp)
+{
+	char *new_var;
+    char **current = envp;
+    char **new_envp = envp;
+    int env_count = 0;
+    int i, j;
+    
+    while (*current != NULL)
+    {
+        current++;
+        env_count++;
+    }
+
+    
+    for (i = 0; i < env_count; i++)
+    {
+        char *current_var = *(envp + i);
+        j = 0;
+
+        
+        while (name[j] != '\0' && current_var[j] != '=' && name[j] == current_var[j]) 
+        {
+            j++;
+        }
+
+        
+        if (name[j] == '\0' && current_var[j] == '=')
+        {
+            if (overwrite == 0)
+            {
+                return (0); 
+            } else
+	    {
+             while (*value != '\0')
+		{
+                    current_var[j + 1] = *value;
+                    value++;
+                    j++;
+                }
+                current_var[j + 1] = '\0'; 
+                return (0); 
+            }
+        }
+    }
+
+    
+    while (*new_envp != NULL)
+    {
+        new_envp++;
+    }
+
+    if ((new_envp - envp) >= MAX_ENV_VARS - 1)
+    {
+        return (-1); 
+    }
+
+    
+    new_var = *(new_envp - 1) + 1; 
+    
+    while (*name != '\0')
+    {
+        *new_var++ = *name++;
+    }
+    *new_var++ = '=';
+    while (*value != '\0')
+    {
+        *new_var++ = *value++;
+    }
+    *new_var = '\0'; 
+
+   
+    *(char **)(new_var + 1) = NULL;
+
+    return (0); 
+}
 
 /**
  * get_full_path - get absolute path to the command file

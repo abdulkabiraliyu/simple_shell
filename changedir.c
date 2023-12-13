@@ -5,7 +5,7 @@
  *
  * @argv: command arguments
  */
-void change_dir(char **argv)
+void change_dir(char **argv, char **envp)
 {
 
 	char *directory;
@@ -15,7 +15,7 @@ void change_dir(char **argv)
 		directory = argv[1];
 
 	else
-		directory = getenv("HOME");
+		directory = _getenv("HOME", envp);
 
 	if (chdir(directory) == -1)
 	{
@@ -27,7 +27,7 @@ void change_dir(char **argv)
 
 		if (getcwd(current_directory, sizeof(current_directory)) != NULL)
 		{
-			setenv("PWD", current_directory, 1);
+			_setenv("PWD", current_directory, 1, envp);
 		}
 		else
 		{
