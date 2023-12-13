@@ -15,7 +15,7 @@ void free_e(char **argv);
 int print_s(char *str);
 void change_dir(char **argv);
 void exec_cmd(char **argv, char *prompt, char **envp);
-void display_prompt();
+void display_prompt(char *prompt);
 int _cmpStrings(const char *string1, const char *string2);
 char *get_full_path(char *path, char *cmd);
 char *_strtok(char *str, char *dlim);

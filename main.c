@@ -15,13 +15,12 @@ int main(int ac, char **av, char **envp)
 	char *buff_line;
 	size_t buf_line_size = 0;
 	char **argv = NULL;
-
-	(void) ac;
-	(void) av;
+	char *prompt = "[$hell]-$ ";
+	(void) ac, (void) av;
 
 	do {
 		if (isatty(STDIN_FILENO))
-			display_prompt();
+			display_prompt(prompt);
 
 		buff_line = NULL;
 
@@ -35,7 +34,7 @@ int main(int ac, char **av, char **envp)
 
 		if (_cmpStrings(argv[0], "exit") == 0)
 		{
-			free(argv);
+			free_e(argv);
 			break;
 		}
 		else if (_cmpStrings(argv[0], "cd") == 0)
@@ -45,7 +44,7 @@ int main(int ac, char **av, char **envp)
 		}
 		else
 		{
-		exec_cmd(argv, prmpt, envp);
+		exec_cmd(argv, prompt, envp);
 
 		}
 
