@@ -20,7 +20,7 @@ int _cmpStrings(const char *string1, const char *string2);
 char *get_full_path(char *path, char *cmd);
 char *_strtok(char *str, char *dlim);
 char **gettokens(char *buff_line);
-char * _duplString(const char *str);
+char *_duplString(const char *str);
 int getcommands(char **buff_line, size_t *buf_line_size);
 char *_concat_strings(const char *str1, const char *str2);
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
