@@ -8,7 +8,6 @@
 
 void display_prompt(char *prompt)
 {
-	
 	print_s(prompt);
 	fflush(stdout);
 }
