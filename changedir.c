@@ -3,6 +3,7 @@
 /**
  * change_dir - change directory ( cd )
  *
+ * @envp: environment variable
  * @argv: command arguments
  */
 void change_dir(char **argv, char **envp)
