@@ -10,13 +10,12 @@
  * Return:nothing
  **/
 
-int main(int ac, char **av, char **envp)
+int main(int __attribute__((__unused__)) ac, char __attribute__((__unused__)) **av, char **envp)
 {
 	char *buff_line;
 	size_t buf_line_size = 0;
 	char **argv = NULL;
 	char *prompt = "[$hell]-$ ";
-	(void) ac, (void) av;
 
 	do {
 		if (isatty(STDIN_FILENO))
