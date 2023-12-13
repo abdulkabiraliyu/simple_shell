@@ -94,3 +94,32 @@ int _cmpStrings(const char *str1, const char *str2)
 
     return (0); 
 }
+/*
+ *
+ *
+ *
+ */
+char* _duplString(const char *str)
+{
+   int i, len = 0;
+   char *dupl; 
+   while (str[len] != '\0')
+   {
+       len++;
+   }
+
+   dupl =  (char *)malloc((len + 1) * sizeof(char));
+
+   if (dupl == NULL)
+   {
+       perror("Memory allocation failed.");
+       return (NULL);
+   }
+
+   for (i = 0; i <= len; i++)
+   {
+       dupl[i] = str[i];
+   }
+
+   return (dupl);
+}

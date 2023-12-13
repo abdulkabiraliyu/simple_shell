@@ -31,7 +31,7 @@ int getcommands(char **buff_line, size_t *buf_line_size)
 
 char **gettokens(char *buff_line)
 {
-	char *buff_line_dup = strdup(buff_line);
+	char *buff_line_dup = _duplString(buff_line);
 	char **av = NULL;
 	char *tkns = NULL, *dlim = " \n";
 	int ac = 0, i;
@@ -57,7 +57,7 @@ char **gettokens(char *buff_line)
 	for (i = 0; i < ac; i++)
 	{
 
-		av[i] = strdup(tkns);
+		av[i] = _duplString(tkns);
 		tkns = _strtok(NULL, dlim);
 
 	}
