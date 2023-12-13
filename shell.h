@@ -7,8 +7,8 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include <string.h>
 #include <sys/wait.h>
+#include <errno.h>
 
 int _putchar(char c);
 void free_e(char **argv);
