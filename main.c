@@ -14,7 +14,6 @@ int main(int ac, char **av, char **envp)
 {
 	char *buff_line;
 	size_t buf_line_size = 0;
-	char *prmpt = "$ ";
 	char **argv = NULL;
 
 	(void) ac;
@@ -22,7 +21,7 @@ int main(int ac, char **av, char **envp)
 
 	do {
 		if (isatty(STDIN_FILENO))
-			display_prompt(prmpt);
+			display_prompt();
 
 		buff_line = NULL;
 

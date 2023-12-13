@@ -8,6 +8,9 @@
 
 void display_prompt(char *prompt)
 {
+	char *prompt;
+
+	prompt = "[$hell]-$ ";
 	print_s(prompt);
 	fflush(stdout);
 }
