@@ -1,6 +1,42 @@
 #include "shell.h"
 
 /**
+ * _getenv - get environment variables
+ *
+ * @name: variable type arg
+ *
+ * Return: the variable
+ */
+
+char *_getenv(const char *name)
+{
+
+extern char **environ;
+    int i = 0;
+    char *env = NULL;
+
+    while (environ[i] != NULL)
+    {
+        int j = 0;
+        while (name[j] != '\0' && environ[i][j] != '=' && name[j] == environ[i][j])
+	{
+            j++;
+        }
+
+        if (name[j] == '\0' && environ[i][j] == '=') 
+	{
+            env = &(environ[i][j + 1]);
+            break;
+        }
+
+        i++;
+    }
+
+    return (env);
+}
+
+
+/**
  * get_full_path - get absolute path to the command file
  *
  * @path: path to environmental varible path
@@ -12,7 +48,7 @@
 char *get_full_path(char *path, char *cmd)
 {
 	char *f_path = NULL, *tokns, *dlim = ":";
-	char *path_cpy = strdup(path);
+	char *path_cpy = _duplString(path);
 	char *concat;
 
 	if (path_cpy == NULL)
@@ -24,10 +60,10 @@ char *get_full_path(char *path, char *cmd)
 	if (access(cmd, X_OK) == 0)
 	{
 		free(path_cpy);
-		return (strdup(cmd));
+		return (_duplString(cmd));
 	}
 
-	tokns = strtok(path_cpy, dlim);
+	tokns = _strtok(path_cpy, dlim);
 
 	while (tokns)
 	{
@@ -47,7 +83,7 @@ char *get_full_path(char *path, char *cmd)
 			free(f_path);
 		}
 
-		tokns = strtok(NULL, dlim);
+		tokns = _strtok(NULL, dlim);
 	}
 	free(path_cpy);
 	return (NULL);

@@ -79,7 +79,9 @@ char **gettokens(char *buff_line)
 void exec_cmd(char **argv, char *prompt, char **env)
 {
 	pid_t p_id;
-	char *path = getenv("PATH"), *full_path;
+
+	char *path = _getenv("PATH"), *full_path;
+	
 	int status;
 
 	if (path != NULL)

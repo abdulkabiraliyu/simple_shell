@@ -8,6 +8,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <sys/wait.h>
+#include <errno.h>
 
 int _putchar(char c);
 void free_e(char **argv);
@@ -26,7 +27,7 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 
 char *_strcpy(char *dest, const char *src);
 
-
+char *_getenv(const char *name);
 void *_realloc(void *pt, unsigned int old_size, unsigned int new_size);
 void assign_bufferptr(char **buffptr, size_t *n, char *buffer, size_t size);
 ssize_t _getline(char **bufferptr, size_t *n, FILE *stream);
