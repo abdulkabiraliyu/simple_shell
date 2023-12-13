@@ -81,45 +81,49 @@ char *_concat_strings(const char *str1, const char *str2)
  */
 int _cmpStrings(const char *str1, const char *str2)
 {
-    
+
 	while (*str1 != '\0' || *str2 != '\0')
 	{
-        	if (*str1 != *str2)
+		if (*str1 != *str2)
 		{
-            		return (1);
+			return (1);
 		}
-        	str1++;
-        	str2++;
-    	}
+		str1++;
+		str2++;
+	}
 
-    return (0); 
+	return (0);
 }
-/*
+
+/**
+ * _duplString - duplicate a string
  *
+ * @str: string
  *
- *
+ * Return: string duplicate
  */
-char* _duplString(const char *str)
+char *_duplString(const char *str)
 {
-   int i, len = 0;
-   char *dupl; 
-   while (str[len] != '\0')
-   {
-       len++;
-   }
+	int i, len = 0;
+	char *dupl;
 
-   dupl =  (char *)malloc((len + 1) * sizeof(char));
+	while (str[len] != '\0')
+	{
+		len++;
+	}
 
-   if (dupl == NULL)
-   {
-       perror("Memory allocation failed.");
-       return (NULL);
-   }
+	dupl =  (char *)malloc((len + 1) * sizeof(char));
 
-   for (i = 0; i <= len; i++)
-   {
-       dupl[i] = str[i];
-   }
+	if (dupl == NULL)
+	{
+		perror("Memory allocation failed.");
+		return (NULL);
+	}
 
-   return (dupl);
+	for (i = 0; i <= len; i++)
+	{
+		dupl[i] = str[i];
+	}
+
+	return (dupl);
 }
