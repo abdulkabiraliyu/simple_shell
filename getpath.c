@@ -8,31 +8,32 @@
  * Return: the variable
  */
 
-char *_getenv(const char *name)
+char *_getenv(const char *name, char **envp)
 {
 
-extern char **environ;
-    int i = 0;
-    char *env = NULL;
 
-    while (environ[i] != NULL)
-    {
-        int j = 0;
-        while (name[j] != '\0' && environ[i][j] != '=' && name[j] == environ[i][j])
+	int i = 0;
+	char *env = NULL;
+
+	while (envp[i] != NULL)
 	{
-            j++;
-        }
+		int j = 0;
 
-        if (name[j] == '\0' && environ[i][j] == '=') 
-	{
-            env = &(environ[i][j + 1]);
-            break;
-        }
+		while (name[j] != '\0' && envp[i][j] != '=' && name[j] == envp[i][j])
+		{
+			j++;
+		}
 
-        i++;
-    }
+		if (name[j] == '\0' && envp[i][j] == '=')
+		{
+			env = &(envp[i][j + 1]);
+			break;
+		}
 
-    return (env);
+		i++;
+	}
+
+	return (env);
 }
 
 
