@@ -70,3 +70,27 @@ char *_concat_strings(const char *str1, const char *str2)
 	result[len_A + len_B] = '\0';
 	return (result);
 }
+
+/**
+ * _cmpStrings - compare two strings if they are the same or not
+ *
+ * @str1: first string
+ * @str2: second string
+ *
+ * Return: 0 if not the same and 1 otherwise
+ */
+int _cmpStrings(const char *str1, const char *str2)
+{
+    
+	while (*str1 != '\0' || *str2 != '\0')
+	{
+        	if (*str1 != *str2)
+		{
+            		return (1);
+		}
+        	str1++;
+        	str2++;
+    	}
+
+    return (0); 
+}
