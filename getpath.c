@@ -4,7 +4,7 @@
  * _getenv - get environment variables
  *
  * @name: variable type arg
- *
+ * @envp: environment
  * Return: the variable
  */
 
@@ -35,6 +35,53 @@ char *_getenv(const char *name, char **envp)
 
 	return (env);
 }
+/**
+ * sp - split function to two parts
+ *
+ * @name: name of the environment variable
+ * @val: value
+ * @o_write: overwrite
+ * @env: environment
+ * @cuvar: current variable
+ *
+ * Return: 0
+ */
+int sp(char const *val, char *cuvar, char **env, char const *name, int o_write)
+{
+	int i, j, env_count = 0;
+
+	for (i = 0; i < env_count; i++)
+	{
+		cuvar = *(env + i);
+		j = 0;
+
+		while (name[j] != '\0' && cuvar[j] != '=' && name[j] == cuvar[j])
+			j++;
+
+		if (name[j] == '\0' && cuvar[j] == '=')
+		{
+			if (o_write == 0)
+			{
+				return (0);
+			}
+
+			while (*val != '\0')
+			{
+				cuvar[j + 1] = *val;
+				val++;
+				j++;
+			}
+
+			cuvar[j + 1] = '\0';
+
+			return (0);
+
+		}
+	}
+
+return (0);
+}
+
 
 /**
  * _setenv - set a new environment
@@ -46,81 +93,46 @@ char *_getenv(const char *name, char **envp)
  *
  * Return: nothing
  */
+
 int _setenv(const char *name, const char *value, int overwrite, char **envp)
 {
-	char *new_var;
-    char **current = envp;
-    char **new_envp = envp;
-    int env_count = 0;
-    int i, j;
-    
-    while (*current != NULL)
-    {
-        current++;
-        env_count++;
-    }
+	char *new_var, *current_var = NULL;
+	char **current = envp;
+	char **new_envp = envp;
+	int env_count = 0;
 
-    
-    for (i = 0; i < env_count; i++)
-    {
-        char *current_var = *(envp + i);
-        j = 0;
+	while (*current != NULL)
+	{
+		current++;
+		env_count++;
+	}
 
-        
-        while (name[j] != '\0' && current_var[j] != '=' && name[j] == current_var[j]) 
-        {
-            j++;
-        }
+	sp(value, current_var, envp, name, overwrite);
 
-        
-        if (name[j] == '\0' && current_var[j] == '=')
-        {
-            if (overwrite == 0)
-            {
-                return (0); 
-            } else
-	    {
-             while (*value != '\0')
-		{
-                    current_var[j + 1] = *value;
-                    value++;
-                    j++;
-                }
-                current_var[j + 1] = '\0'; 
-                return (0); 
-            }
-        }
-    }
 
-    
-    while (*new_envp != NULL)
-    {
-        new_envp++;
-    }
+	while (*new_envp != NULL)
+		new_envp++;
 
-    if ((new_envp - envp) >= MAX_ENV_VARS - 1)
-    {
-        return (-1); 
-    }
+	if ((new_envp - envp) >= MAX_ENV_VARS - 1)
+		return (-1);
 
-    
-    new_var = *(new_envp - 1) + 1; 
-    
-    while (*name != '\0')
-    {
-        *new_var++ = *name++;
-    }
-    *new_var++ = '=';
-    while (*value != '\0')
-    {
-        *new_var++ = *value++;
-    }
-    *new_var = '\0'; 
+	new_var = *(new_envp - 1) + 1;
 
-   
-    *(char **)(new_var + 1) = NULL;
+	while (*name != '\0')
+		*new_var++ = *name++;
 
-    return (0); 
+	*new_var++ = '=';
+
+	while (*value != '\0')
+	{
+		*new_var++ = *value++;
+	}
+
+	*new_var = '\0';
+
+	*(char **)(new_var + 1) = NULL;
+
+	return (0);
 }
 
 /**
