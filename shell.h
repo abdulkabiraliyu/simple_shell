@@ -12,6 +12,9 @@
 #include <errno.h>
 
 int _putchar(char c);
+int _atoi(const char *str);
+void execute_exit(char **argv);
+
 void free_e(char **argv);
 int print_s(char *str);
 void change_dir(char **argv, char **envp);

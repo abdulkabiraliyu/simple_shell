@@ -1,6 +1,27 @@
 #include "shell.h"
 
 /**
+ * execute_exit - execute builtin exit
+ *
+ * @argv - argument passed
+ *
+ * Return: 0
+ */
+
+void execute_exit(char **argv)
+{
+	int status = 0;
+
+	if (argv[1] != NULL)
+		status = _atoi(argv[1]);
+
+     	free_e(argv);
+        exit(status);
+
+}
+
+
+/**
  * main - simple shell program
  *
  * @ac: argument count
@@ -15,7 +36,7 @@ int main(int ac, char __attribute__((__unused__)) **av, char **envp)
 	char *buff_line;
 	size_t buf_line_size = 0;
 	char **argv = NULL;
-	char *prompt = "[$hell]-$ ";
+	char *prompt = "$hell-$ ";
 	(void) ac;
 
 	do {
@@ -33,10 +54,9 @@ int main(int ac, char __attribute__((__unused__)) **av, char **envp)
 		argv = gettokens(buff_line);
 
 		if (_cmpStrings(argv[0], "exit") == 0)
-		{
-			free_e(argv);
-			break;
-		}
+			execute_exit(argv);
+
+
 		else if (_cmpStrings(argv[0], "cd") == 0)
 		{
 			change_dir(argv, envp);
