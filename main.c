@@ -3,7 +3,7 @@
 /**
  * execute_exit - execute builtin exit
  *
- * @argv - argument passed
+ * @argv:  argument passed
  *
  * Return: 0
  */
@@ -15,8 +15,8 @@ void execute_exit(char **argv)
 	if (argv[1] != NULL)
 		status = _atoi(argv[1]);
 
-     	free_e(argv);
-        exit(status);
+	free_e(argv);
+	exit(status);
 
 }
 
@@ -36,7 +36,7 @@ int main(int ac, char __attribute__((__unused__)) **av, char **envp)
 	char *buff_line;
 	size_t buf_line_size = 0;
 	char **argv = NULL;
-	char *prompt = "$hell-$ ";
+	char *prompt = "[$hell]-$ ";
 	(void) ac;
 
 	do {
@@ -64,7 +64,7 @@ int main(int ac, char __attribute__((__unused__)) **av, char **envp)
 		}
 		else
 		{
-		exec_cmd(argv, prompt, envp);
+			exec_cmd(argv, prompt, envp);
 
 		}
 
