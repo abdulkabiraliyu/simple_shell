@@ -42,7 +42,10 @@ int main(int ac, char __attribute__((__unused__)) **av, char **envp)
 
 	do {
 		if (isatty(STDIN_FILENO))
+		{
 			display_prompt(prompt);
+			fflush(stdout);
+		}
 
 		buff_line = NULL;
 
@@ -50,7 +53,7 @@ int main(int ac, char __attribute__((__unused__)) **av, char **envp)
 		{
 			free(buff_line);
 			print_s("Exiting shell ...");
-			exit(0);
+			break;
 		}
 
 		argv = gettokens(buff_line);
@@ -72,7 +75,7 @@ int main(int ac, char __attribute__((__unused__)) **av, char **envp)
 
 	} while (1);
 
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 /**
