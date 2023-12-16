@@ -54,7 +54,7 @@ int main(int ac, char __attribute__((__unused__)) **av, char **envp)
 			free(buff_line);
 			print_s("Exiting shell ...");
 			
-			return (0);
+			exit(0);
 		}
 
 		argv = gettokens(buff_line);
