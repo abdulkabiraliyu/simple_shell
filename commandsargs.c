@@ -133,3 +133,39 @@ void exec_cmd(char **argv, char *prompt, char **env)
 		perror("Error <PATH is NULL>");
 	}
 }
+/*
+ * built_in_commands - execute shell built in commands
+ *
+ * @argv: array of strings containing commands and arguments
+ *
+ * Return: true if command is built in or false otherwise
+ */
+bool built_in_commands(char **argv, char **envp)
+{
+	int i;
+	if (_cmpStrings(argv[0], "exit") == 0)
+	{
+		execute_exit(argv);
+		return (true);
+	}
+
+
+      else if (_cmpStrings(argv[0], "cd") == 0)
+      {
+              change_dir(argv, envp);
+              free(argv);
+	      return (true);
+      }
+	else if (_cmpStrings(argv[0], "env") == 0)
+	{
+		i = 0;
+		while (envp[i] != NULL)
+		{
+			print_s(envp[i]);
+			i++;
+		}
+	}
+
+ 
+  return (false);
+}

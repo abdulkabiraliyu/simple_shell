@@ -10,6 +10,9 @@
 #include <stdlib.h>
 #include <sys/wait.h>
 #include <errno.h>
+#include <stdbool.h>
+
+
 
 int _putchar(char c);
 int _atoi(const char *str);
@@ -17,6 +20,8 @@ void execute_exit(char **argv);
 
 void free_e(char **argv);
 int print_s(char *str);
+bool built_in_commands(char **argv, char **envp);
+
 void change_dir(char **argv, char **envp);
 void exec_cmd(char **argv, char *prompt, char **envp);
 void display_prompt(char *prompt);

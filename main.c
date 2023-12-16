@@ -57,20 +57,9 @@ int main(int ac, char __attribute__((__unused__)) **av, char **envp)
 
 		argv = gettokens(buff_line);
 
-		if (_cmpStrings(argv[0], "exit") == 0)
-			execute_exit(argv);
-
-
-		else if (_cmpStrings(argv[0], "cd") == 0)
-		{
-			change_dir(argv, envp);
-			free(argv);
-		}
-		else
-		{
+		if (built_in_commands(argv, envp) == false)
 			exec_cmd(argv, prompt, envp);
 
-		}
 
 	} while (1);
 
