@@ -83,11 +83,6 @@ void exec_cmd(char **argv, char *prompt, char **env)
 	char *path = _getenv("PATH", env), *full_path;
 	int status;
 
- 	if (!isatty(STDIN_FILENO))
-        {
-                print_s("non - interactive");
-        }
-
 	if (path != NULL)
 	{
 		full_path = get_full_path(path, argv[0]);
