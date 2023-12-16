@@ -78,15 +78,32 @@ char **gettokens(char *buff_line)
 
 void exec_cmd(char **argv, char *prompt, char **env)
 {
+	
 	pid_t p_id;
 	char *path = _getenv("PATH", env), *full_path;
 	int status;
+
+ 	if (!isatty(STDIN_FILENO))
+        {
+                print_s("non - interactive");
+        }
 
 	if (path != NULL)
 	{
 		full_path = get_full_path(path, argv[0]);
 		if (full_path != NULL)
 		{
+			if (!isatty(STDIN_FILENO))
+       			{
+				if (execve(full_path, argv, env) == -1)
+                                {
+                                        perror(prompt);
+                                        exit(EXIT_FAILURE);
+                                }
+                	
+        		}
+			else {
+
 			p_id = fork();
 			if (p_id == -1)
 			{
@@ -103,10 +120,12 @@ void exec_cmd(char **argv, char *prompt, char **env)
 			}
 			else
 			{
+				wait(&status);
 				free_e(argv);
 				free(full_path);
-				wait(&status);
 			}
+			}
+
 		}
 		else
 		{
