@@ -51,10 +51,8 @@ int main(int ac, char __attribute__((__unused__)) **av, char **envp)
 
 		if (getcommands(&buff_line, &buf_line_size) == -1)
 		{
-			free(buff_line);
-			print_s("Exiting shell ...");
-			
-			exit(0);
+			free(buff_line);		
+			return (0);
 		}
 
 		argv = gettokens(buff_line);
